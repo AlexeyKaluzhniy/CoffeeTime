@@ -4,7 +4,7 @@
     "slug": "CoffeTime",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/appIcon/ios/App Icon 120x120.png",
+    "icon": "./assets/appIcon/ios/App_Icon_1024x1024.png",
     "userInterfaceStyle": "light",  
     "splash": {
       "image": "./assets/splash/640x1136.png"
@@ -15,13 +15,13 @@
     "ios": {
       "supportsTablet": true,
       "adaptiveIcon": {
-        "foregroundImage":"./assets/appIcon/ios/App Icon 1024x1024.png"
+        "foregroundImage":"./assets/appIcon/ios/App_Icon_1024x1024.png"
       },
       "minTarget": "9.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/appIcon/ios/App Icon 1024x1024.png"
+        "foregroundImage": "./assets/appIcon/ios/App_Icon_1024x1024.png"
       },
       "splash": {
         "mdpi": "./assets/splash/320x568.png",
