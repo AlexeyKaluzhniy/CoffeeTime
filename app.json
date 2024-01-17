@@ -4,24 +4,34 @@
     "slug": "CoffeTime",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/appIcon/ios/App Icon 120x120.png",
+    "userInterfaceStyle": "light",  
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+      "image": "./assets/splash/640x1136.png"
+    },  
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "adaptiveIcon": {
+        "foregroundImage":"./assets/appIcon/ios/App Icon 1024x1024.png"
+      },
+      "minTarget": "9.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/appIcon/ios/App Icon 1024x1024.png"
+      },
+      "splash": {
+        "mdpi": "./assets/splash/320x568.png",
+        "hdpi": "./assets/splash/414x736.png",
+        "xhdpi": "./assets/splash/640x960.png",
+        "xxhdpi": "./assets/splash/640x1136.png",
+        "xxxhdpi": "./assets/splash/750x1334.png",
+        "resizeMode": "cover"
+      },
+      "minSdkVersion": 21
     },
     "web": {
       "favicon": "./assets/favicon.png"
