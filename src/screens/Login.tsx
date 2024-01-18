@@ -1,28 +1,24 @@
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
 import AppTitle from "../shared/components/appTitle";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
     return (
-        <View style={styles.container}>
-            <ImageBackground source={require('../../assets/background/фон.png')} style={styles.background}>
-                <LinearGradient colors={['transparent', 'rgba(255, 255, 255, 0.6)']} style={styles.gradient} />
+        <ImageBackground source={require('../../assets/background/фон.png')} style={styles.background}>
+            <LinearGradient colors={['transparent', 'rgba(255, 255, 255, 0.6)']} style={styles.gradient} />
                 <AppTitle />
-                <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+                <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => {
+                    navigation.replace('Drawer')
+                }}>
                     <FontAwesome name="facebook" size={26} color="#fff" style={styles.icon} />
                     <Text style={styles.buttonText}>Войти через Facebook</Text>
                 </TouchableOpacity>
-            </ImageBackground>
-        </View>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff'
-    },
     background: {
         flex: 1,
         alignItems: 'center',

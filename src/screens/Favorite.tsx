@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React, { useState } from 'react';
 
 type Drink = {
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#fff',
-        marginTop: 50
+        //marginTop: 50
     },
 });

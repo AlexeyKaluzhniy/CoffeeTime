@@ -2,36 +2,34 @@ import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Image, TextI
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppTitle from "../shared/components/appTitle";
+import { useState } from "react";
 
 export default function RegisterScreen() {
+    const [name, setName] = useState('Анна Борисова');
+
     return (
-        <View style={styles.container}>
-            <ImageBackground source={require('../../assets/background/фон.png')} style={styles.background}>
-                <LinearGradient colors={['transparent', 'rgba(255, 255, 255, 0.6)']} style={styles.gradient} />
-                <AppTitle />
-                <View style={styles.profilePhotoContainer}>
-                    <Image source={require('../../assets/profile/user.png')} style={styles.profilePhoto} />
-                </View>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        style={styles.input}
-                        value="Анна Борисова"
-                    />
-                    <MaterialCommunityIcons name="pencil-outline" size={28} color="#fff" />
-                </View>
-                <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-                    <Text style={styles.buttonText}>далее</Text>
-                </TouchableOpacity>
-            </ImageBackground>
-        </View>
+        <ImageBackground source={require('../../assets/background/фон.png')} style={styles.background}>
+            <LinearGradient colors={['transparent', 'rgba(255, 255, 255, 0.6)']} style={styles.gradient} />
+            <AppTitle />
+            <View style={styles.profilePhotoContainer}>
+                <Image source={require('../../assets/profile/user.png')} style={styles.profilePhoto} />
+            </View>
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    value={name}
+                    onChangeText={text => setName(text)}
+                />
+                <MaterialCommunityIcons name="pencil-outline" size={28} color="#fff" />
+            </View>
+            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+                <Text style={styles.buttonText}>далее</Text>
+            </TouchableOpacity>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
     background: {
         flex: 1,
         alignItems: 'center',
