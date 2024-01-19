@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React, { useState } from 'react';
+import { CustomHeader } from '../navigation/customHeaderDrawer';
+import { DrawerProps } from '../../types';
 
 type Drink = {
     id: string,
@@ -18,7 +20,7 @@ type Drink = {
     imagesPath: string
 };
 
-export default function Favorite() {
+export function Favorite() {
     const [data, setData] = useState<Drink[]>([{
         id: '1',
         productName: 'кофейный напиток',

@@ -4,7 +4,7 @@ import 'react-native-gesture-handler';
 import { useCallback, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import RootStack from "./src/navigation/rootStackNavigator";
+import { RootStack } from "./src/navigation/rootStackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { store } from "./src/redux/store";
@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#EAEAEA'
+    backgroundColor: '#fff'
   },
 });

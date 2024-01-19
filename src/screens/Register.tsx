@@ -1,10 +1,9 @@
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Image, TextInput } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppTitle from "../shared/components/appTitle";
 import { useState } from "react";
 
-export default function RegisterScreen() {
+export function RegisterScreen() {
     const [name, setName] = useState('Анна Борисова');
 
     return (
@@ -12,7 +11,7 @@ export default function RegisterScreen() {
             <LinearGradient colors={['transparent', 'rgba(255, 255, 255, 0.6)']} style={styles.gradient} />
             <AppTitle />
             <View style={styles.profilePhotoContainer}>
-                <Image source={require('../../assets/profile/user.png')} style={styles.profilePhoto} />
+                <Image source={require('../../assets/icons/user.png')} />
             </View>
             <View style={styles.inputContainer}>
                 <TextInput
@@ -20,7 +19,7 @@ export default function RegisterScreen() {
                     value={name}
                     onChangeText={text => setName(text)}
                 />
-                <MaterialCommunityIcons name="pencil-outline" size={28} color="#fff" />
+                <Image source={require('../../assets/icons/icon_pencil_edit.png')} style={{width: 36, height: 36}}/>
             </View>
             <TouchableOpacity style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.buttonText}>далее</Text>
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         alignItems: 'center',
-
     },
     button: {
         width: 300,
@@ -47,10 +45,6 @@ const styles = StyleSheet.create({
         fontFamily: 'SFUIRegular',
         fontSize: 18,
         paddingVertical: 15
-    },
-    profilePhoto: {
-        width: 135,
-        height: 135,
     },
     profilePhotoContainer: {
         borderWidth: 2,

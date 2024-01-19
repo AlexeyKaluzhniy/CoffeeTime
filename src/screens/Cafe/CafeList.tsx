@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ImageBackground } from "react-native";
 import { useDispatch } from 'react-redux';
-import { Entypo, MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
-import { fetchList, selectCafes } from '../redux/cafeListSlice';
-import { AppDispatch } from "../redux/store";
+import { fetchList, selectCafes } from '../../redux/cafeListSlice';
+import { AppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
-import Map from './Map';
+import { Map } from '../Map';
+import { CafeStackProps } from "../../../types";
 
-export default function CafeList() {
+export function CafeList({ navigation } : CafeStackProps) {
     const [isLeftActive, setIsLeftActive] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
-    const sessionId = "1083c095-7431-459f-859f-ed57d76ac5fb";
+    const sessionId = "051ea2ba-fbb5-42ea-ac0f-de7fc85fd104";
     const data = useSelector(selectCafes);
 
     useEffect(() => {
@@ -32,16 +32,11 @@ export default function CafeList() {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.toggleContainer}>
-                <View style={styles.toggle}>
-                    <TouchableOpacity onPress={handleToggleLeft} style={isLeftActive ?
-                        { ...styles.activeIcon, paddingLeft: 18, paddingRight: 18 } :
-                        { marginLeft: 20 }}>
-                        <MaterialCommunityIcons name="map-marker" size={24} color="#717171" />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={handleToggleRight} style={!isLeftActive ? styles.activeIcon : { marginRight: 25 }}>
-                        <Foundation name="list" size={24} color="#717171" />
-                    </TouchableOpacity>
-                </View>
+                <ImageBackground source={require('../../../assets/icons/icon_map_list.png')} style={{ width: 130, height: 34, zIndex: 1, flexDirection: 'row' }}>
+                    <TouchableOpacity onPress={handleToggleLeft} style={{ flex: 1 }} />
+                    <TouchableOpacity onPress={handleToggleRight} style={{ flex: 1 }} />
+                </ImageBackground>
+                <Image source={require('../../../assets/icons/icon_switch_map.png')} style={!isLeftActive ? styles.activeIcon : { ...styles.activeIcon, left: 120 }} />
             </View>
             {isLeftActive ? <Map /> : <FlatList
                 data={data}
@@ -54,15 +49,15 @@ export default function CafeList() {
                                 <Text style={styles.itemTitle}>{item.name}</Text>
                                 <Text style={{ color: '#717171', fontFamily: 'SFUILight' }}>мы находимся:</Text>
                                 <Text style={{ color: '#717171', fontFamily: 'SFUIRegular', fontSize: 16 }}>{item.address}</Text>
-                                <TouchableOpacity style={styles.details}>
+                                <TouchableOpacity style={styles.details} onPress={() => navigation.navigate('CafeDetails', { sessionId: sessionId, cafeId: item.id })}>
                                     <Text style={{ color: '#BFBFBF', fontFamily: 'SFUILight' }}>подробнее</Text>
-                                    <Entypo name="chevron-right" size={16} color="#BFBFBF" />
+                                    <Image source={require('../../../assets/icons/icon_read_more.png')} />
                                 </TouchableOpacity>
                             </View>
                         </View>
                     );
                 }}
-                style={{ marginTop: 8 }}
+                style={{ backgroundColor: '#fff' }}
             />}
         </View>
     );
@@ -94,20 +89,10 @@ const styles = StyleSheet.create({
         paddingBottom: 15,
         alignItems: 'center',
     },
-    toggle: {
-        borderWidth: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: 120,
-        height: 31,
-        borderRadius: 20,
-        borderColor: '#717171',
-    },
     activeIcon: {
-        paddingHorizontal: 23,
-        backgroundColor: '#C8D9AF',
-        borderRadius: 20,
-        margin: 2
+        position: 'absolute',
+        right: 120,
+        top: 12,
+        zIndex: 0
     },
 });
