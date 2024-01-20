@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
+import { Entypo } from '@expo/vector-icons';
+import { DrawerActions } from '@react-navigation/native';
+import { DrawerHeaderProps } from '@react-navigation/drawer';
 
 
-export function CustomHeaderStack({ navigation }: NativeStackHeaderProps) {
+export function CustomHeader({ navigation }: NativeStackHeaderProps | DrawerHeaderProps) {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.icon} onPress={() => navigation.goBack()}>
-                <Image source={require('../../assets/icons/icon_back.png')} />
+            <TouchableOpacity style={styles.icon} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+                <Entypo name="menu" size={26} color="black" />
             </TouchableOpacity>
             <Text style={styles.title}>CoffeTime</Text>
         </View>
@@ -16,8 +19,8 @@ export function CustomHeaderStack({ navigation }: NativeStackHeaderProps) {
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: 15,
-        paddingTop: 30,
+        paddingBottom: 10,
+        paddingTop: 35,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
@@ -25,8 +28,8 @@ const styles = StyleSheet.create({
     },
     icon: {
         position: 'absolute',
-        left: 10,
-        top: 32
+        left: 20,
+        top: 37
     },
     title: {
         fontFamily: 'lobsterRegular',

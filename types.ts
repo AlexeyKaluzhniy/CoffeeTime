@@ -10,6 +10,15 @@ export type CafeList = {
     images: string
 }
 
+export type Drink = {
+    id: string,
+    cofeId: string,
+    name: string,
+    price: number,
+    favorite: true,
+    imagesPath: string
+}
+
 export type CafeStackParamList = {
     CafeList: undefined,
     CafeDetails: {
@@ -18,7 +27,7 @@ export type CafeStackParamList = {
     }
 }
 
-export type CafeStackProps = NativeStackScreenProps<CafeStackParamList, 'CafeList' | 'CafeDetails'>;
+export type CafeStackProps = NativeStackScreenProps<CafeStackParamList, 'CafeDetails' | 'CafeList'>;
 
 export type RootStackParamList = {
     Login: undefined,

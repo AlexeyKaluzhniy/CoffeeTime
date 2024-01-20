@@ -1,11 +1,16 @@
-import { View, Text, StyleSheet, ScrollView, ImageBackground, Image, TouchableOpacity } from 'react-native';
-import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
 import { CafeList, CafeStackProps } from '../../../types';
 import { LinearGradient } from 'expo-linear-gradient';
+import { CafeDrinkList } from '../Drink/CafeDrinkList';
 
 export function CafeDetails({ route }: CafeStackProps) {
     const [details, setDetails] = useState<CafeList>();
     const [isPressed, setIsPressed] = useState(false);
+
+    const handlePress = useCallback(() => {
+        setIsPressed(prevState => !prevState);
+    }, []);
 
     useEffect(() => {
         try {
@@ -15,7 +20,7 @@ export function CafeDetails({ route }: CafeStackProps) {
                     headers: {
                         'Content-Type': 'application/json; charset=utf8',
                     },
-                    body: JSON.stringify({ sessionId: route.params!.sessionId, cafeId: route.params!.cafeId })
+                    body: JSON.stringify({ sessionId: route.params?.sessionId, cafeId: route.params?.cafeId })
                 })
                 if (!response.ok) {
                     console.log(response.status);
@@ -32,18 +37,23 @@ export function CafeDetails({ route }: CafeStackProps) {
     }, []);
 
     return (
-        <View>
-            <ScrollView>
-                <ImageBackground source={{ uri: details?.images }} style={{ width: '100%', height: 308 }}>
-                    <LinearGradient colors={['transparent', 'rgba(247, 236, 218, 0.8)']} style={styles.gradient} />
-                    <Text style={styles.title}>{details?.name}</Text>
-                    <Text style={styles.address}>{details?.address}</Text>
-                    <TouchableOpacity style={styles.switch} activeOpacity={0.8} onPress={() => setIsPressed(!isPressed)}>
-                        <Image source={require('../../../assets/icons/icon_switch_bg.png')} />
-                        <Image source={require('../../../assets/icons/icon_swich_pin_active.png')} style={!isPressed ? styles.switchPin : { ...styles.switchPin, left: 18 }} />
-                    </TouchableOpacity>
-                </ImageBackground>
-            </ScrollView>
+        <View style={{ backgroundColor: '#fff', flex: 1 }}>
+            {details ?
+                (<View style={{ flex: 1 }}>
+                    <ImageBackground source={{ uri: details.images }} style={{ width: '100%', height: 308 }}>
+                        <LinearGradient colors={['transparent', 'rgba(247, 236, 218, 0.8)']} style={styles.gradient} />
+                        <Text style={styles.title}>{details.name}</Text>
+                        <Text style={styles.address}>{details.address}</Text>
+                        <TouchableOpacity style={styles.switch} activeOpacity={0.8} onPress={handlePress}>
+                            <Image source={require('../../../assets/icons/icon_switch_bg.png')} />
+                            <Image source={require('../../../assets/icons/icon_swich_pin_active.png')} style={!isPressed ? styles.switchPin : { ...styles.switchPin, left: 18 }} />
+                        </TouchableOpacity>
+                    </ImageBackground>
+                    <CafeDrinkList sessionId={route.params!.sessionId} cafeId={details.id} />
+                </View>) :
+                (<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                    <ActivityIndicator size='large' color='#C8D9AF' />
+                </View>)}
         </View>
     )
 }

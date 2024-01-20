@@ -10,7 +10,7 @@ import { CafeStackProps } from "../../../types";
 export function CafeList({ navigation } : CafeStackProps) {
     const [isLeftActive, setIsLeftActive] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
-    const sessionId = "051ea2ba-fbb5-42ea-ac0f-de7fc85fd104";
+    const sessionId = "92b51048-3e76-4279-8db7-90a598e7e15c";
     const data = useSelector(selectCafes);
 
     useEffect(() => {
