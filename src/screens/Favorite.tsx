@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { DrinkList } from './Drink/DrinkList';
-import { Drink } from '../../types';
+import { Drink } from '../../componentTypes';
 
 export function Favorite() {
     const [data, setData] = useState<Drink[]>([{
@@ -11,8 +10,4 @@ export function Favorite() {
         favorite: true,
         imagesPath: ''
     }]);
-
-    return (
-        <DrinkList drinks={data} />
-    )
 }

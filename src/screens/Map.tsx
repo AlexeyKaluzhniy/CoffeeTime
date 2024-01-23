@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, Image } from "react-native";
+import { fonts } from "../shared/styles/fonts";
 
 export function Map() {
     return (
@@ -10,7 +11,7 @@ export function Map() {
             </View>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>CoffeTime</Text>
-                <Text style={{ fontFamily: 'SFUILight', color: '#ADADAD', fontSize: 16 }}>900 м = 15 минут</Text>
+                <Text style={{ fontFamily: fonts.SFUILight, color: '#ADADAD', fontSize: 16 }}>900 м = 15 минут</Text>
             </View>
         </View>
     );
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
         bottom: 120,
     },
     title: {
-        fontFamily: 'lobsterRegular',
+        fontFamily: fonts.LobsterRegular,
         fontSize: 24,
         marginBottom: 10
     },

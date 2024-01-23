@@ -1,9 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import cafesReducer from './cafeListSlice';
+import { cafeListReducer } from "./cafe/cafeListReducer";
+import { cafeDetailsReducer } from "./cafe/cafeDetailsReducer";
+import { cafeDrinksReducer } from "./cafe/cafeDrinksReducer";
+import { drinkDetailsReducer } from "./drink/drinkDetailsReducer";
 
 export const store = configureStore({
     reducer: {
-        cafes: cafesReducer
+        cafes: cafeListReducer,
+        cafeDetails: cafeDetailsReducer,
+        cafeDrinks: cafeDrinksReducer,
+        drinkDetails: drinkDetailsReducer
     }
 });
 

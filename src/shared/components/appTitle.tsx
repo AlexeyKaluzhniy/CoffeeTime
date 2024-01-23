@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from 'react-native'
 
-export default function AppTitle() {
+export function AppTitle() {
     return (
         <View style={styles.titleContainer}>
             <Text style={styles.titleText}>CoffeTime</Text>

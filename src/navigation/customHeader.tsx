@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { Entypo } from '@expo/vector-icons';

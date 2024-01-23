@@ -1,38 +1,32 @@
-import * as Font from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
+import { useFonts } from 'expo-font';
 import 'react-native-gesture-handler';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import { RootStack } from "./src/navigation/rootStackNavigator";
+import { RootStack } from './src/navigation/RootStackNavigator';
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { store } from "./src/redux/store";
 
-export default function App() {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+SplashScreen.preventAutoHideAsync();
 
-  useEffect(() => {
-    async function getFonts() {
-      await Font.loadAsync({
-        lobsterRegular: require('./assets/fonts/Lobster-Regular.ttf'),
-        SFUIBold: require('./assets/fonts/SF-UI-Text-Bold.otf'),
-        SFUILight: require('./assets/fonts/SF-UI-Text-Light.otf'),
-        SFUIMedium: require('./assets/fonts/SF-UI-Text-Medium.otf'),
-        SFUIRegular: require('./assets/fonts/SF-UI-Text-Regular.otf'),
-      });
-      setFontsLoaded(true);
-    }
-    getFonts();
-  }, []);
+export default function App() {
+  const [fontsLoaded, fontsError] = useFonts({
+    'lobsterRegular': require('./assets/fonts/Lobster-Regular.ttf'),
+    'SFUIBold': require('./assets/fonts/SF-UI-Text-Bold.otf'),
+    'SFUILight': require('./assets/fonts/SF-UI-Text-Light.otf'),
+    'SFUIMedium': require('./assets/fonts/SF-UI-Text-Medium.otf'),
+    'SFUIRegular': require('./assets/fonts/SF-UI-Text-Regular.otf'),
+  });
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
+    if (fontsLoaded || fontsError) {
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, fontsError]);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded && !fontsError) return null;
 
   return (
     <Provider store={store}>

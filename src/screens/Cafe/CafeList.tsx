@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useDispatch } from 'react-redux';
-import { fetchList, selectCafes } from '../../redux/cafeListSlice';
+import { fetchCafeList, selectCafes } from '../../redux/cafe/cafeListReducer';
 import { AppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { Map } from '../Map';
-import { CafeStackProps } from "../../../types";
+import { CafeStackProps } from "../../../navigationTypes";
+import { fonts } from "../../shared/styles/fonts";
+import { CafeListCard } from "./CafeListCard";
 
-export function CafeList({ navigation } : CafeStackProps) {
+export function CafeList({ navigation }: CafeStackProps) {
     const [isLeftActive, setIsLeftActive] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
-    const sessionId = "92b51048-3e76-4279-8db7-90a598e7e15c";
+    const sessionId = "af928e21-53a5-40e5-9d10-11892763b2c5";
     const data = useSelector(selectCafes);
 
     useEffect(() => {
-        dispatch(fetchList(sessionId));
+        dispatch(fetchCafeList(sessionId));
     }, [dispatch]);
 
-    const handleToggleLeft = () => {
+    const handleToggleMap = () => {
         if (!isLeftActive) {
             setIsLeftActive(!isLeftActive);
         }
     };
 
-    const handleToggleRight = () => {
+    const handleToggleList = () => {
         if (isLeftActive) {
             setIsLeftActive(!isLeftActive);
         }
@@ -32,29 +34,24 @@ export function CafeList({ navigation } : CafeStackProps) {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.toggleContainer}>
-                <ImageBackground source={require('../../../assets/icons/icon_map_list.png')} style={{ width: 130, height: 34, zIndex: 1, flexDirection: 'row' }}>
-                    <TouchableOpacity onPress={handleToggleLeft} style={{ flex: 1 }} />
-                    <TouchableOpacity onPress={handleToggleRight} style={{ flex: 1 }} />
-                </ImageBackground>
+                <Image source={require('../../../assets/icons/icon_map_list.png')} style={{ zIndex: 1 }} />
                 <Image source={require('../../../assets/icons/icon_switch_map.png')} style={!isLeftActive ? styles.activeIcon : { ...styles.activeIcon, left: 120 }} />
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity onPress={handleToggleMap} style={{ flex: 1 }} />
+                    <TouchableOpacity onPress={handleToggleList} style={{ flex: 1 }} />
+                </View>
             </View>
             {isLeftActive ? <Map /> : <FlatList
                 data={data}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => {
                     return (
-                        <View style={styles.cafeCard}>
-                            <Image source={{ uri: item.images }} style={{ width: 125, height: 125 }} />
-                            <View style={{ flex: 1, marginLeft: 15 }}>
-                                <Text style={styles.itemTitle}>{item.name}</Text>
-                                <Text style={{ color: '#717171', fontFamily: 'SFUILight' }}>мы находимся:</Text>
-                                <Text style={{ color: '#717171', fontFamily: 'SFUIRegular', fontSize: 16 }}>{item.address}</Text>
-                                <TouchableOpacity style={styles.details} onPress={() => navigation.navigate('CafeDetails', { sessionId: sessionId, cafeId: item.id })}>
-                                    <Text style={{ color: '#BFBFBF', fontFamily: 'SFUILight' }}>подробнее</Text>
-                                    <Image source={require('../../../assets/icons/icon_read_more.png')} />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        <CafeListCard cafe={item}>
+                            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate('CafeDetails', { sessionId: sessionId, cafeId: item.id })}>
+                                <Text style={{ color: '#BFBFBF', fontFamily: fonts.SFUILight }}>подробнее</Text>
+                                <Image source={require('../../../assets/icons/icon_read_more.png')} />
+                            </TouchableOpacity>
+                        </CafeListCard>
                     );
                 }}
                 style={{ backgroundColor: '#fff' }}
@@ -64,19 +61,6 @@ export function CafeList({ navigation } : CafeStackProps) {
 }
 
 const styles = StyleSheet.create({
-    cafeCard: {
-        backgroundColor: '#fff',
-        marginBottom: 8,
-        height: 125,
-        flexDirection: 'row',
-        elevation: 2,
-    },
-    itemTitle: {
-        marginVertical: 8,
-        fontFamily: 'SFUILight',
-        fontSize: 20,
-        color: '#C8D9AF'
-    },
     details: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -85,14 +69,23 @@ const styles = StyleSheet.create({
     },
     toggleContainer: {
         backgroundColor: '#fff',
-        paddingTop: 8,
-        paddingBottom: 15,
-        alignItems: 'center',
+        marginTop: 8,
+        marginBottom: 15,
+        justifyContent: 'center',
+        position: 'relative',
+        flexDirection: 'row'
     },
     activeIcon: {
         position: 'absolute',
         right: 120,
-        top: 12,
+        top: 4,
         zIndex: 0
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        position: 'absolute',
+        width: '35%',
+        height: '100%',
+        zIndex: 2,
+    }
 });

@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Favorite } from "../screens/Favorite";
-import { CafeStack } from "./cafeStackNavigator";
-import { CustomHeader } from "./customHeader";
+import { CafeStack } from "./CafeStackNavigator";
+import { CustomHeader } from "./CustomHeader";
 
 const drawer = createDrawerNavigator();
 

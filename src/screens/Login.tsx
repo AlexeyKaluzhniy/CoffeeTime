@@ -1,9 +1,10 @@
 import { Text, ImageBackground, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import AppTitle from "../shared/components/appTitle";
-import { RootStackProps } from "../../types";
+import { RootStackProps } from "../../navigationTypes";
+import { AppTitle } from "../shared/components/AppTitle";
+import { fonts } from "../shared/styles/fonts";
 
-export function LoginScreen({ navigation } : RootStackProps) {
+export function LoginScreen({ navigation }: RootStackProps) {
     return (
         <ImageBackground source={require('../../assets/background/фон.png')} style={styles.background}>
             <LinearGradient colors={['transparent', 'rgba(255, 255, 255, 0.6)']} style={styles.gradient} />
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
-        fontFamily: 'SFUIRegular',
+        fontFamily: fonts.SFUIRegular,
         fontSize: 18
     },
     gradient: {

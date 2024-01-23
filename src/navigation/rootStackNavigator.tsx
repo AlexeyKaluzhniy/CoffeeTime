@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LoginScreen } from "../screens/Login";
 import { RegisterScreen } from "../screens/Register";
-import { Drawer } from "./drawerNavigator";
-import { RootStackParamList } from "../../types";
+import { Drawer } from "./DrawerNavigator";
+import { RootStackParamList } from "../../navigationTypes";
 
 const rootStack = createNativeStackNavigator<RootStackParamList>();
 

@@ -1,41 +1,45 @@
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { Drink } from '../../../types';
-import { DrinkList } from './DrinkList';
+import { FlatList, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { CafeStackProps } from '../../../navigationTypes';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { fetchCafeDrinks, selectCafeDrinks } from '../../redux/cafe/cafeDrinksReducer';
+import { useSelector } from 'react-redux';
+import { DrinkCard } from './DrinkCard';
 
 type DrinkProps = {
     sessionId: string,
     cafeId: string,
+    navigation: CafeStackProps['navigation'];
 }
 
-export function CafeDrinkList({ sessionId, cafeId }: DrinkProps) {
-    const [drinks, setDrinks] = useState<Drink[]>([]);
+export function CafeDrinkList({ sessionId, cafeId, navigation }: DrinkProps) {
+    const dispatch = useDispatch<AppDispatch>();
+    const drinks = useSelector(selectCafeDrinks);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        try {
-            const fetchDrinks = async () => {
-                const response = await fetch('http://cafe.prox2.dex-it.ru/api/Product/GetProductsCafe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json; charset=utf8',
-                    },
-                    body: JSON.stringify({ sessionId: sessionId, cafeId: cafeId })
-                })
-                if (!response.ok) {
-                    console.log(response.status);
-                    throw new Error('Something went wrong');
-                }
-                const responseJson = await response.json();
-                setDrinks(responseJson);
-            }
-            fetchDrinks();
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }, []);
+        dispatch(fetchCafeDrinks({ sessionId: sessionId, cafeId: cafeId }))
+            .then(() => setIsLoading(false));
+    }, [dispatch]);
+
+    const pressHandler = (id: string) => navigation.navigate('DrinkDetails', { sessionId: sessionId, id: id });
 
     return (
-        <DrinkList drinks={drinks} />
+        <View style={{ flex: 1 }}>
+            {!isLoading ? <FlatList
+                data={drinks}
+                keyExtractor={item => item.cofeId}
+                renderItem={({ item }) => {
+                    return (
+                        <DrinkCard drink={item} pressHandler={pressHandler} />
+                    );
+                }}
+                overScrollMode='never'
+                showsVerticalScrollIndicator={false}
+                numColumns={2}
+                ListHeaderComponent={() => { return (<View style={{ paddingTop: 10 }} />) }}
+            /> : null}
+        </View>
     )
 }

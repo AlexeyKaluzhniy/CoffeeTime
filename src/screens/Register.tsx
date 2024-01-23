@@ -1,7 +1,9 @@
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Image, TextInput } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import AppTitle from "../shared/components/appTitle";
+import { AppTitle } from "../shared/components/AppTitle";
 import { useState } from "react";
+import { fonts } from "../shared/styles/fonts";
+import { colors } from "../shared/styles/colors";
 
 export function RegisterScreen() {
     const [name, setName] = useState('Анна Борисова');
@@ -19,7 +21,7 @@ export function RegisterScreen() {
                     value={name}
                     onChangeText={text => setName(text)}
                 />
-                <Image source={require('../../assets/icons/icon_pencil_edit.png')} style={{width: 36, height: 36}}/>
+                <Image source={require('../../assets/icons/icon_pencil_edit.png')} style={{ width: 36, height: 36 }} />
             </View>
             <TouchableOpacity style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.buttonText}>далее</Text>
@@ -36,13 +38,13 @@ const styles = StyleSheet.create({
     button: {
         width: 300,
         alignItems: 'center',
-        backgroundColor: '#C8D9AF',
+        backgroundColor: colors.PRIMARY,
         borderRadius: 100,
         marginTop: 140
     },
     buttonText: {
         color: '#fff',
-        fontFamily: 'SFUIRegular',
+        fontFamily: fonts.SFUIRegular,
         fontSize: 18,
         paddingVertical: 15
     },
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     input: {
         width: 215,
         fontSize: 18,
-        fontFamily: 'SFUIRegular',
+        fontFamily: fonts.SFUIRegular,
         color: '#fff',
         marginBottom: 5
     },
