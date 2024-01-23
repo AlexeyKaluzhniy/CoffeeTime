@@ -11,9 +11,9 @@ import { CafeListCard } from "./CafeListCard";
 
 export function CafeList({ navigation }: CafeStackProps) {
     const [isLeftActive, setIsLeftActive] = useState(false);
+    const data = useSelector(selectCafes);
     const dispatch = useDispatch<AppDispatch>();
     const sessionId = "af928e21-53a5-40e5-9d10-11892763b2c5";
-    const data = useSelector(selectCafes);
 
     useEffect(() => {
         dispatch(fetchCafeList(sessionId));
@@ -47,7 +47,7 @@ export function CafeList({ navigation }: CafeStackProps) {
                 renderItem={({ item }) => {
                     return (
                         <CafeListCard cafe={item}>
-                            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate('CafeDetails', { sessionId: sessionId, cafeId: item.id })}>
+                            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate('CafeDetailsScreen', { sessionId: sessionId, cafeId: item.id })}>
                                 <Text style={{ color: '#BFBFBF', fontFamily: fonts.SFUILight }}>подробнее</Text>
                                 <Image source={require('../../../assets/icons/icon_read_more.png')} />
                             </TouchableOpacity>

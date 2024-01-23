@@ -11,7 +11,7 @@ export function CafeListCard({ children, cafe }: ViewProps & { cafe: CafeList })
             <View style={{ flex: 1, marginLeft: 15 }}>
                 <Text style={styles.itemTitle}>{cafe.name}</Text>
                 <Text style={{ color: colors.SECONDARY_TEXT, fontFamily: fonts.SFUILight }}>мы находимся:</Text>
-                <Text style={{ color: colors.SECONDARY_TEXT, fontFamily: fonts.SFUIRegular, fontSize: 16 }}>{cafe.address}</Text>
+                <Text style={styles.address}>{cafe.address}</Text>
                 {children}
             </View>
         </View>
@@ -32,4 +32,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: colors.PRIMARY
     },
+    address: {
+        color: colors.SECONDARY_TEXT,
+        fontFamily: fonts.SFUIRegular,
+        fontSize: 16
+    }
 });

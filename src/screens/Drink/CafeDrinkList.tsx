@@ -23,7 +23,7 @@ export function CafeDrinkList({ sessionId, cafeId, navigation }: DrinkProps) {
             .then(() => setIsLoading(false));
     }, [dispatch]);
 
-    const pressHandler = (id: string) => navigation.navigate('DrinkDetails', { sessionId: sessionId, id: id });
+    const pressHandler = (id: string) => navigation.navigate('DrinkDetailsScreen', { sessionId: sessionId, id: id });
 
     return (
         <View style={{ flex: 1 }}>

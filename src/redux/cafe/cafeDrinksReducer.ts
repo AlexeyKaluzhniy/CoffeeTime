@@ -27,4 +27,4 @@ export const cafeDrinksReducer = createReducer(initialState, (builder) => {
         })
 });
 
-export const selectCafeDrinks = (state: RootState) => state.cafeDrinks.drinks;
+export const selectCafeDrinks = (state: RootState) => state.cafe.cafeDrinks.drinks;

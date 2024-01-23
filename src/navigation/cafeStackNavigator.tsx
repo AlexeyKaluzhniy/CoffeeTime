@@ -6,6 +6,7 @@ import { CustomHeader } from "./CustomHeader";
 import { TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Drink } from "../screens/Drink/Drink";
+import { fonts } from "../shared/styles/fonts";
 
 const cafeStack = createNativeStackNavigator<CafeStackParamList>();
 
@@ -22,15 +23,15 @@ export function CafeStack() {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-                fontFamily: 'lobsterRegular',
+                fontFamily: fonts.LobsterRegular,
                 fontSize: 22
             },
             title: 'CoffeTime',
-            contentStyle: {backgroundColor: '#fff'},
+            contentStyle: { backgroundColor: '#fff' },
         }}>
-            <cafeStack.Screen name='CafeList' component={CafeList} options={{ header: CustomHeader }} />
-            <cafeStack.Screen name='CafeDetails' component={CafeDetails} />
-            <cafeStack.Screen name='DrinkDetails' component={Drink} />
+            <cafeStack.Screen name='CafeListScreen' component={CafeList} options={{ header: CustomHeader }} />
+            <cafeStack.Screen name='CafeDetailsScreen' component={CafeDetails} />
+            <cafeStack.Screen name='DrinkDetailsScreen' component={Drink} />
         </cafeStack.Navigator>
     );
 }

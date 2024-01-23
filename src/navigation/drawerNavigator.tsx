@@ -2,8 +2,9 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Favorite } from "../screens/Favorite";
 import { CafeStack } from "./CafeStackNavigator";
 import { CustomHeader } from "./CustomHeader";
+import { DrawerParamList } from "../../navigationTypes";
 
-const drawer = createDrawerNavigator();
+const drawer = createDrawerNavigator<DrawerParamList>();
 
 export function Drawer() {
     return (

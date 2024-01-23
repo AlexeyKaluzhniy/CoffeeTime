@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Drink } from '../../componentTypes';
+import { View } from 'react-native';
 
 export function Favorite() {
     const [data, setData] = useState<Drink[]>([{
@@ -10,4 +11,8 @@ export function Favorite() {
         favorite: true,
         imagesPath: ''
     }]);
+
+    return (
+        <View></View>
+    );
 }

@@ -2,31 +2,31 @@ import { DrawerScreenProps } from "@react-navigation/drawer";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type CafeStackParamList = {
-    CafeList: undefined;
-    CafeDetails: {
+    CafeListScreen: {};
+    CafeDetailsScreen: {
         sessionId: string,
         cafeId: string
     };
-    DrinkDetails: {
+    DrinkDetailsScreen: {
         sessionId: string,
         id: string
     };
 };
 
-export type CafeStackProps = NativeStackScreenProps<CafeStackParamList, 'CafeDetails'>;
-export type DrinkDetailsProps = NativeStackScreenProps<CafeStackParamList, 'DrinkDetails'>;
+export type CafeStackProps = NativeStackScreenProps<CafeStackParamList, 'CafeDetailsScreen'>;
+export type DrinkDetailsProps = NativeStackScreenProps<CafeStackParamList, 'DrinkDetailsScreen'>;
 
 export type RootStackParamList = {
-    Login: undefined;
-    Register: undefined;
-    Drawer: undefined;
+    Login: {};
+    Register: {};
+    Drawer: {};
 };
 
 export type RootStackProps = NativeStackScreenProps<RootStackParamList>;
 
-type DrawerParamList = {
-    Favorite: undefined;
-    Cafes: undefined;
+export type DrawerParamList = {
+    Favorite: {};
+    Cafes: {};
 };
 
 export type DrawerProps = DrawerScreenProps<DrawerParamList>;
