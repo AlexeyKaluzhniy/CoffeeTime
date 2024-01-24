@@ -1,4 +1,4 @@
-import { ActivityIndicator, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { DrinkDetailsProps } from '../../../navigationTypes';
 import { useDispatch } from 'react-redux';
@@ -7,6 +7,8 @@ import { fetchDrinkDetails, selectDrinkDetails } from '../../redux/drink/drinkDe
 import { useSelector } from 'react-redux';
 import { colors } from '../../shared/styles/colors';
 import { fonts } from '../../shared/styles/fonts';
+import { LoadingIndicator } from '../../shared/components/LoadingIndicator';
+import { FavoriteButton } from '../../shared/components/FavoriteButton';
 
 export function Drink({ route }: DrinkDetailsProps) {
     const dispatch = useDispatch<AppDispatch>();
@@ -40,11 +42,11 @@ export function Drink({ route }: DrinkDetailsProps) {
                     <Image source={{ uri: details.imagesPath }} style={styles.image} />
                     <View style={styles.titleContainer}>
                         <Text style={styles.productTitle}>{details.productName}</Text>
-                        {details.favarite ? <Image source={require('../../../assets/icons/icon_heart_active.png')} style={styles.heart} /> :
-                            <Image source={require('../../../assets/icons/icon_heart_gray.png')} style={styles.heart} />
-                        }
+                        <View style={styles.heart}>
+                            <FavoriteButton productId={details.id} />
+                        </View>
                     </View>
-                    <View style={{ flexDirection: 'row', marginLeft: 22 }}>
+                    <View style={styles.attributes}>
                         {details.attribute.map(item => {
                             return (
                                 <View key={item.id}>
@@ -54,18 +56,16 @@ export function Drink({ route }: DrinkDetailsProps) {
                         })}
                     </View>
                     <View style={{ justifyContent: 'flex-end', flex: 1 }}>
-                        <View style={{ marginBottom: 24, flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={styles.footer}>
                             <Text style={styles.price}>{details.price}</Text>
-                            <Image source={require('../../../assets/icons/simvol_rub.png')} style={{ marginTop: 2, marginLeft: 10 }} />
+                            <Image source={require('../../../assets/icons/simvol_rub.png')} style={{ marginTop: 3, marginRight: 5 }} />
                             <TouchableOpacity style={styles.button}>
                                 <Text style={styles.buttonTitle}>заказать</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>) :
-                (<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                    <ActivityIndicator size='large' color='#C8D9AF' />
-                </View>)}
+                (<LoadingIndicator />)}
         </View>
     )
 }
@@ -86,14 +86,14 @@ const styles = StyleSheet.create({
         marginLeft: 8
     },
     price: {
-        marginLeft: 35,
+        marginLeft: 20,
         fontFamily: fonts.SFUIRegular,
         fontSize: 28,
-        color: colors.SECONDARY_TEXT
+        color: colors.SECONDARY_TEXT,
     },
     button: {
         backgroundColor: colors.PRIMARY,
-        marginLeft: 35
+        marginLeft: 35,
     },
     buttonTitle: {
         paddingHorizontal: 60,
@@ -106,5 +106,20 @@ const styles = StyleSheet.create({
         width: 250,
         height: 250,
         alignSelf: 'center'
+    },
+    attributes: {
+        flexDirection: 'row',
+        marginLeft: 22
+    },
+    footer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        alignSelf: 'center',
+        paddingTop: 18,
+        paddingBottom: 24,
+        borderTopWidth: 1,
+        borderTopColor: '#EAEAEA',
+        width: 332
     }
 });

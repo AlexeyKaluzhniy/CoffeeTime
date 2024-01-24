@@ -13,7 +13,7 @@ export function CafeList({ navigation }: CafeStackProps) {
     const [isLeftActive, setIsLeftActive] = useState(false);
     const data = useSelector(selectCafes);
     const dispatch = useDispatch<AppDispatch>();
-    const sessionId = "af928e21-53a5-40e5-9d10-11892763b2c5";
+    const sessionId = "645b8378-37e3-49a7-ae4d-675fda1b2986";
 
     useEffect(() => {
         dispatch(fetchCafeList(sessionId));

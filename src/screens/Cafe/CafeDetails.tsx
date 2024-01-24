@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { useCallback, useEffect, useState } from 'react';
 import { CafeStackProps } from '../../../navigationTypes';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,6 +9,7 @@ import { AppDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { colors } from '../../shared/styles/colors';
 import { fonts } from '../../shared/styles/fonts';
+import { LoadingIndicator } from '../../shared/components/LoadingIndicator';
 
 export function CafeDetails({ navigation, route }: CafeStackProps) {
     const dispatch = useDispatch<AppDispatch>();
@@ -44,9 +45,7 @@ export function CafeDetails({ navigation, route }: CafeStackProps) {
                     </ImageBackground>
                     <CafeDrinkList sessionId={route.params!.sessionId} cafeId={details.id} navigation={navigation} />
                 </View>) :
-                (<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                    <ActivityIndicator size='large' color={colors.PRIMARY} />
-                </View>)}
+                (<LoadingIndicator />)}
         </View>
     )
 }
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.LobsterRegular,
         fontSize: 28,
         color: colors.PRIMARY_TEXT,
-        marginBottom: 8,
+        marginBottom: 5,
         marginLeft: 16,
     },
     address: {

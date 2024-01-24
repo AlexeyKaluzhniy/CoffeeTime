@@ -3,6 +3,7 @@ import { cafeListReducer } from "./cafe/cafeListReducer";
 import { cafeDetailsReducer } from "./cafe/cafeDetailsReducer";
 import { cafeDrinksReducer } from "./cafe/cafeDrinksReducer";
 import { drinkDetailsReducer } from "./drink/drinkDetailsReducer";
+import { favoriteReducer } from "./favorite/favoriteReducer";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
             cafeDetails: cafeDetailsReducer,
             cafeDrinks: cafeDrinksReducer
         }),
-        drinkDetails: drinkDetailsReducer
+        drinkDetails: drinkDetailsReducer,
+        favorite: favoriteReducer
     }
 });
 
