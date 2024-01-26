@@ -8,16 +8,21 @@ import { Map } from '../Map';
 import { CafeStackProps } from "../../../navigationTypes";
 import { fonts } from "../../shared/styles/fonts";
 import { CafeListCard } from "./CafeListCard";
+import { fetchAllProducts } from "../../redux/favorite/favoriteReducer";
+import { selectSessionId } from "../../redux/auth/loginReducer";
 
 export function CafeList({ navigation }: CafeStackProps) {
     const [isLeftActive, setIsLeftActive] = useState(false);
     const data = useSelector(selectCafes);
     const dispatch = useDispatch<AppDispatch>();
-    const sessionId = "645b8378-37e3-49a7-ae4d-675fda1b2986";
+    const sessionId = useSelector(selectSessionId);
 
     useEffect(() => {
-        dispatch(fetchCafeList(sessionId));
-    }, [dispatch]);
+        if (sessionId) {
+            dispatch(fetchCafeList(sessionId));
+            dispatch(fetchAllProducts(sessionId));
+        }
+    }, [dispatch, sessionId]);
 
     const handleToggleMap = () => {
         if (!isLeftActive) {
@@ -69,7 +74,6 @@ const styles = StyleSheet.create({
     },
     toggleContainer: {
         backgroundColor: '#fff',
-        marginTop: 8,
         marginBottom: 15,
         justifyContent: 'center',
         position: 'relative',
@@ -86,6 +90,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: '35%',
         height: '100%',
-        zIndex: 2,
+        zIndex: 1,
     }
 });

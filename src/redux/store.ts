@@ -4,6 +4,7 @@ import { cafeDetailsReducer } from "./cafe/cafeDetailsReducer";
 import { cafeDrinksReducer } from "./cafe/cafeDrinksReducer";
 import { drinkDetailsReducer } from "./drink/drinkDetailsReducer";
 import { favoriteReducer } from "./favorite/favoriteReducer";
+import { authReducer } from "./auth/loginReducer";
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
             cafeDrinks: cafeDrinksReducer
         }),
         drinkDetails: drinkDetailsReducer,
-        favorite: favoriteReducer
+        favorite: favoriteReducer,
+        auth: authReducer
     }
 });
 

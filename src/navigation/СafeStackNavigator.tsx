@@ -15,7 +15,8 @@ export function CafeStack() {
 
     return (
         <cafeStack.Navigator screenOptions={{
-            animation: 'slide_from_right', headerLeft: () => {
+            animation: 'slide_from_right',
+            headerLeft: () => {
                 return (
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Image source={require('../../assets/icons/icon_back.png')} />

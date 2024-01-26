@@ -7,7 +7,7 @@
     "icon": "./assets/appIcon/ios/App_Icon_1024x1024.png",
     "userInterfaceStyle": "light",  
     "splash": {
-      "image": "./assets/splash/640x1136.png"
+      "image": "./assets/splash/750x1334.png"
     },  
     "assetBundlePatterns": [
       "**/*"

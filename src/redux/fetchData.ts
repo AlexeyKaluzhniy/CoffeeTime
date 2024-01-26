@@ -1,16 +1,21 @@
 type RequestProp = {
     url: string;
-    requestBody: string | RequestBodyCafe | RequestBodyProduct
+    requestBody: string | RequestBodyCafe | RequestBodyProduct | RequestBodyLogin;
 }
 
 type RequestBodyCafe = {
-    sessionId: string,
-    cafeId: string
+    sessionId: string;
+    cafeId: string;
 }
 
 type RequestBodyProduct = {
-    sessionId: string,
-    productId: string
+    sessionId: string;
+    productId: string;
+}
+
+type RequestBodyLogin = {
+    email: string;
+    password: string;
 }
 
 export const fetchData = async function ({ requestBody, url }: RequestProp) {

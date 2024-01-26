@@ -3,19 +3,20 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { selectFavorite, setFavoriteServer, unsetFavoriteServer } from '../../redux/favorite/favoriteReducer';
 import { useSelector } from 'react-redux';
+import { selectSessionId } from '../../redux/auth/loginReducer';
 
 export function FavoriteButton({ productId }: { productId: string }) {
-    const sessionId = "645b8378-37e3-49a7-ae4d-675fda1b2986";
+    const sessionId = useSelector(selectSessionId);
     const dispatch = useDispatch<AppDispatch>();
     const isFavorite = useSelector(selectFavorite(productId));
 
     const handleToggleFavorite = () => {
-        if (!isFavorite) {     
+        if (!isFavorite) {
             dispatch(setFavoriteServer({ sessionId, productId }));
         } else {
             dispatch(unsetFavoriteServer({ sessionId, productId }));
         }
-    }
+    };
 
     return (
         <TouchableOpacity onPress={handleToggleFavorite}>

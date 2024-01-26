@@ -19,11 +19,11 @@ export function CafeDrinkList({ sessionId, cafeId, navigation }: DrinkProps) {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        dispatch(fetchCafeDrinks({ sessionId: sessionId, cafeId: cafeId }))
+        dispatch(fetchCafeDrinks({ sessionId, cafeId }))
             .then(() => setIsLoading(false));
     }, [dispatch]);
 
-    const pressHandler = (id: string) => navigation.navigate('DrinkDetailsScreen', { sessionId: sessionId, id: id });
+    const pressHandler = (id: string) => navigation.navigate('DrinkDetailsScreen', {sessionId, id });
 
     return (
         <View style={{ flex: 1 }}>

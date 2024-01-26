@@ -1,4 +1,4 @@
-import { createAsyncThunk, createReducer, createSelector } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createReducer, createSelector } from "@reduxjs/toolkit";
 import { fetchData } from "../fetchData";
 import { Drink } from "../../../componentTypes";
 import { RootState } from "../store";
@@ -17,7 +17,7 @@ export const setFavoriteServer = createAsyncThunk(
     async function ({ sessionId, productId }: { sessionId: string, productId: string }) {
         fetchData({
             url: 'http://cafe.prox2.dex-it.ru/api/Favorite/Set',
-            requestBody: { sessionId: sessionId, productId: productId }
+            requestBody: { sessionId, productId }
         });
         return productId;
     });
@@ -27,7 +27,7 @@ export const unsetFavoriteServer = createAsyncThunk(
     async function ({ sessionId, productId }: { sessionId: string, productId: string }) {
         fetchData({
             url: 'http://cafe.prox2.dex-it.ru/api/Favorite/Unset',
-            requestBody: { sessionId: sessionId, productId: productId }
+            requestBody: { sessionId, productId }
         });
         return productId;
     });
@@ -44,8 +44,9 @@ const initialState: FavoriteState = {
 
 export const favoriteReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(fetchAllProducts.fulfilled, (state, action) => {
+        .addCase(fetchAllProducts.fulfilled, (state, action: PayloadAction<Drink[]>) => {
             state.products = action.payload;
+            state.favorites = action.payload.filter(product => product.favorite).map(product => product.id);
         })
         .addCase(setFavoriteServer.fulfilled, (state, action) => {
             if (!state.favorites.includes(action.payload)) {

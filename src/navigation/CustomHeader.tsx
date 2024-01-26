@@ -19,12 +19,12 @@ export function CustomHeader({ navigation }: NativeStackHeaderProps | DrawerHead
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: 10,
+        paddingBottom: 16,
         paddingTop: 35,
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        position: 'relative'
     },
     icon: {
         position: 'absolute',
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'lobsterRegular',
-        fontSize: 22
-    }
+        fontSize: 22,
+        alignSelf: 'center'
+    },
 });

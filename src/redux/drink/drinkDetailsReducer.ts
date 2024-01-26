@@ -16,7 +16,7 @@ export const fetchDrinkDetails = createAsyncThunk(
     async function ({ sessionId, productId }: { sessionId: string, productId: string }) {
         return fetchData({
             url: 'http://cafe.prox2.dex-it.ru/api/Product/GetProduct',
-            requestBody: { sessionId: sessionId, productId: productId }
+            requestBody: { sessionId, productId }
         })
     });
 
