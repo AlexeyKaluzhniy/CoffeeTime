@@ -5,17 +5,17 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/appIcon/ios/App_Icon_1024x1024.png",
-    "userInterfaceStyle": "light",  
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash/750x1334.png"
-    },  
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
       "adaptiveIcon": {
-        "foregroundImage":"./assets/appIcon/ios/App_Icon_1024x1024.png"
+        "foregroundImage": "./assets/appIcon/ios/App_Icon_1024x1024.png"
       },
       "minTarget": "9.0"
     },
@@ -35,6 +35,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ]
   }
 }

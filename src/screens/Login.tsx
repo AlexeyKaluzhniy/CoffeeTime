@@ -10,10 +10,10 @@ import { fetchSessionId } from "../redux/auth/loginReducer";
 export function LoginScreen({ navigation }: RootStackProps) {
     const dispatch = useDispatch<AppDispatch>();
 
-    const handleLogin = () => {
-        dispatch(fetchSessionId({ email: 'kaluzhniy2017@yandex.ru', password: 'qwerty' }));
+    const handleLogin = async () => {
+        await dispatch(fetchSessionId({ email: 'kaluzhniy2017@yandex.ru', password: 'qwerty' }));
         navigation.replace('Drawer');
-    }
+    };
 
     return (
         <ImageBackground source={require('../../assets/background/фон.png')} style={styles.background}>
