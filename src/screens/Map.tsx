@@ -1,12 +1,19 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { fonts } from "../shared/styles/fonts";
-import MapView, { Marker } from "react-native-maps";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectCafes } from "../redux/cafe/cafeListReducer";
+import { colors } from "../shared/styles/colors";
 
 import * as Location from 'expo-location';
+import * as geolib from 'geolib';
+import MapView, { Marker } from "react-native-maps";
+import customMapStyle from '../shared/styles/customMapStyle.json';
 
 export function Map() {
     const [location, setLocation] = useState<Location.LocationObject>();
+    const [distance, setDistance] = useState(0);
+    const cafes = useSelector(selectCafes);
 
     useEffect(() => {
         (async () => {
@@ -19,6 +26,13 @@ export function Map() {
         })();
     }, []);
 
+    const handleMarkerSelect = (marker: { latitude: number, longitude: number }) => {
+        if (location) {
+            const distance = geolib.getDistance({ latitude: location.coords.latitude, longitude: location.coords.longitude }, marker);
+            setDistance(distance);
+        }
+    }
+
     return (
         <View style={styles.container}>
             <MapView
@@ -29,6 +43,8 @@ export function Map() {
                     latitudeDelta: 0.003,
                     longitudeDelta: 0.003,
                 }}
+                customMapStyle={customMapStyle}
+                onPress={() => setDistance(0)}
             >
                 <Marker
                     coordinate={{
@@ -37,14 +53,31 @@ export function Map() {
                     }}
                     image={require('../../assets/icons/icon_locating.png')}
                 />
+                {cafes && cafes.map(cafe => {
+                    const [latitude, longitude] = cafe.coordinates.split(',').map(Number);
+                    return (
+                        <Marker
+                            key={cafe.id}
+                            coordinate={{ latitude: latitude, longitude: longitude }}
+                            title={cafe.name}
+                            description={cafe.address}
+                            pinColor={colors.PRIMARY}
+                            onPress={() => handleMarkerSelect({ latitude: latitude, longitude: longitude })}
+                        />
+                    );
+                })}
             </MapView>
             <View style={styles.icons}>
-                <Image source={require('../../assets/icons/icon_sent.png')} style={{ left: 45 }} />
-                <Image source={require('../../assets/icons/icon_search.png')} style={{ right: 45 }} />
+                <TouchableOpacity activeOpacity={0.7}>
+                    <Image source={require('../../assets/icons/icon_sent.png')} style={{ left: 45 }} />
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={0.7}>
+                    <Image source={require('../../assets/icons/icon_search.png')} style={{ right: 45 }} />
+                </TouchableOpacity>
             </View>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>CoffeTime</Text>
-                <Text style={{ fontFamily: fonts.SFUILight, color: '#ADADAD', fontSize: 16 }}>900 м = 15 минут</Text>
+                <Text style={{ fontFamily: fonts.SFUILight, color: '#ADADAD', fontSize: 16 }}>{distance} м = {Math.round(distance / 120)} минут</Text>
             </View>
         </View>
     );
@@ -62,6 +95,7 @@ const styles = StyleSheet.create({
         bottom: 150,
         position: 'absolute',
         width: '100%',
+        zIndex: 1
     },
     title: {
         fontFamily: fonts.LobsterRegular,
