@@ -4,7 +4,7 @@ import { selectAllFavorites } from '../../redux/favorite/favoriteReducer';
 import { DrinkCard } from '../Drink/DrinkCard';
 import { FavoriteStackProps } from '../../../navigationTypes';
 import { NoCoffee } from './NoCoffee';
-import { selectSessionId } from '../../redux/auth/loginReducer';
+import { selectSessionId } from '../../redux/auth/authReducer';
 
 export function Favorite({ navigation }: FavoriteStackProps) {
     const favorites = useSelector(selectAllFavorites);

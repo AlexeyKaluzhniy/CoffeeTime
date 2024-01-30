@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { selectFavorite, setFavoriteServer, unsetFavoriteServer } from '../../redux/favorite/favoriteReducer';
 import { useSelector } from 'react-redux';
-import { selectSessionId } from '../../redux/auth/loginReducer';
+import { selectSessionId } from '../../redux/auth/authReducer';
 
 export function FavoriteButton({ productId }: { productId: string }) {
     const sessionId = useSelector(selectSessionId);

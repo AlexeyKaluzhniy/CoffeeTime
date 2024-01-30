@@ -4,9 +4,9 @@ import { RootState } from "../store";
 
 export const fetchSessionId = createAsyncThunk(
     'cafe/fetchSessionId',
-    async function ({ email, password }: { email: string, password: string }) {
+    async function ({ email, password, url }: { email: string, password: string, url: string }) {
         return fetchData({
-            url: 'http://cafe.prox2.dex-it.ru/api/User/Authorization',
+            url: `http://cafe.prox2.dex-it.ru/api/User/${url}`,
             requestBody: { email, password }
         })
     });

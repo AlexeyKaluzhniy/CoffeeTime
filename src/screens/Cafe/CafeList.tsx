@@ -9,7 +9,7 @@ import { CafeStackProps } from "../../../navigationTypes";
 import { fonts } from "../../shared/styles/fonts";
 import { CafeListCard } from "./CafeListCard";
 import { fetchAllProducts } from "../../redux/favorite/favoriteReducer";
-import { selectSessionId } from "../../redux/auth/loginReducer";
+import { selectSessionId } from "../../redux/auth/authReducer";
 
 export function CafeList({ navigation }: CafeStackProps) {
     const [isLeftActive, setIsLeftActive] = useState(false);

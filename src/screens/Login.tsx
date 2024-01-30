@@ -5,13 +5,14 @@ import { AppTitle } from "../shared/components/AppTitle";
 import { fonts } from "../shared/styles/fonts";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
-import { fetchSessionId } from "../redux/auth/loginReducer";
+import { fetchSessionId } from "../redux/auth/authReducer";
+import { SignInUpLink } from "../shared/components/SignInUpLink";
 
 export function LoginScreen({ navigation }: RootStackProps) {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleLogin = async () => {
-        await dispatch(fetchSessionId({ email: 'kaluzhniy2017@yandex.ru', password: 'qwerty' }));
+        await dispatch(fetchSessionId({ email: 'kaluzhniy2017@yandex.ru', password: 'qwerty', url: 'Authorization' }));
         navigation.replace('Drawer');
     };
 
@@ -23,6 +24,7 @@ export function LoginScreen({ navigation }: RootStackProps) {
                 <Image source={require('../../assets/icons/icon_facebook.png')} style={styles.icon} />
                 <Text style={styles.buttonText}>Войти через Facebook</Text>
             </TouchableOpacity>
+            <SignInUpLink handlePress={() => navigation.replace('Register')} title='Регистрация' />
         </ImageBackground>
     );
 }
