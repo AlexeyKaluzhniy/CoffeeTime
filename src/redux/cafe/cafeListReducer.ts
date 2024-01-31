@@ -1,10 +1,10 @@
 import { PayloadAction, createAsyncThunk, createReducer } from "@reduxjs/toolkit";
-import { CafeList } from "../../../componentTypes";
+import { Cafe } from "../../../componentTypes";
 import { RootState } from "../store";
 import { fetchData } from "../fetchData";
 
 interface CafeListState {
-    data: CafeList[];
+    data: Cafe[];
 }
 
 const initialState: CafeListState = {
@@ -18,7 +18,7 @@ export const fetchCafeList = createAsyncThunk(
     });
 
 export const cafeListReducer = createReducer(initialState, (builder) => {
-    builder.addCase(fetchCafeList.fulfilled, (state, action: PayloadAction<CafeList[]>) => {
+    builder.addCase(fetchCafeList.fulfilled, (state, action: PayloadAction<Cafe[]>) => {
         state.data = action.payload;
     })
 });

@@ -1,4 +1,6 @@
-export type CafeList = {
+import { RootStackProps } from "./navigationTypes";
+
+export type Cafe = {
     id: string;
     name: string;
     address: string;
@@ -32,3 +34,9 @@ export type DrinkDetails = {
     ],
     imagesPath: string
 };
+
+export type AuthProps = {
+    navigation: RootStackProps['navigation'];
+    url: 'Register' | 'Authorization';
+    buttonText: string;
+}

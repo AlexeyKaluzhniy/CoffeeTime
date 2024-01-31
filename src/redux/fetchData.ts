@@ -33,7 +33,6 @@ export const fetchData = async function ({ requestBody, url }: RequestProp) {
         const responseJson = await response.json();
         return responseJson;
     } catch (error) {
-        console.error('Error fetching data:', error);
         throw error;
     }
 }

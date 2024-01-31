@@ -2,9 +2,9 @@ import { StyleSheet, Text, View, Image, ViewProps } from 'react-native';
 import React from 'react';
 import { colors } from '../../shared/styles/colors';
 import { fonts } from '../../shared/styles/fonts';
-import { CafeList } from '../../../componentTypes';
+import { Cafe } from '../../../componentTypes';
 
-export function CafeListCard({ children, cafe }: ViewProps & { cafe: CafeList }) {
+export function CafeListCard({ children, cafe }: ViewProps & { cafe: Cafe }) {
     return (
         <View style={styles.cafeCard}>
             <Image source={{ uri: cafe.images }} style={{ width: 125, height: 125 }} />
