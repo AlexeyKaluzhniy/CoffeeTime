@@ -1,19 +1,22 @@
-import { View, ImageBackground, StyleSheet, Image } from "react-native";
+import { View, ImageBackground, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppTitle } from "../../shared/components/AppTitle";
-import { RootStackProps } from "../../../navigationTypes";
 import { AuthForm } from "./AuthForm";
 import { authStyles } from "../../shared/styles/authStyles";
+import { AuthStackProps } from "../../../navigationTypes";
 
-export function RegisterScreen({ navigation }: RootStackProps) {
+export function RegisterScreen({ navigation }: AuthStackProps) {
     return (
-        <ImageBackground source={require('../../../assets/background/фон.png')} style={authStyles.background}>
+        <ImageBackground source={require('../../../assets/background/background.png')} style={authStyles.background}>
             <LinearGradient colors={['transparent', 'rgba(255, 255, 255, 0.6)']} style={authStyles.gradient} />
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                <Image source={require('../../../assets/icons/icon_back.png')} />
+            </TouchableOpacity>
             <AppTitle />
             <View style={styles.profilePhotoContainer}>
                 <Image source={require('../../../assets/icons/user.png')} />
             </View>
-            <AuthForm navigation={navigation} url='Register' buttonText='зарегистрироваться' />
+            <AuthForm url='Register' buttonText='Зарегистрироваться' />
         </ImageBackground>
     );
 }
@@ -25,4 +28,9 @@ const styles = StyleSheet.create({
         borderRadius: 120,
         marginTop: 60
     },
+    backButton: {
+        position: 'absolute',
+        left: 20,
+        top: 40,
+    }
 });

@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useDispatch } from 'react-redux';
-import { fetchCafeList, selectCafes } from '../../redux/cafe/cafeListReducer';
 import { AppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { Map } from '../Map';
 import { CafeStackProps } from "../../../navigationTypes";
 import { fonts } from "../../shared/styles/fonts";
 import { CafeListCard } from "./CafeListCard";
-import { fetchAllProducts } from "../../redux/favorite/favoriteReducer";
-import { selectSessionId } from "../../redux/auth/authReducer";
+import { fetchAllProducts } from "../../redux/favoriteReducer";
+import { selectSessionId } from "../../redux/authSlice";
+import { fetchCafeList, selectCafes } from "../../redux/cafeReducer";
+import { EmptyScreen } from "../../shared/components/EmptyScreen";
+import { globalStyles } from "../../shared/styles/globalStyles";
+import { colors } from "../../shared/styles/colors";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export function CafeList({ navigation }: CafeStackProps) {
     const [isLeftActive, setIsLeftActive] = useState(false);
@@ -37,59 +41,71 @@ export function CafeList({ navigation }: CafeStackProps) {
     };
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={styles.toggleContainer}>
-                <Image source={require('../../../assets/icons/icon_map_list.png')} style={{ zIndex: 1 }} />
-                <Image source={require('../../../assets/icons/icon_switch_map.png')} style={!isLeftActive ? styles.activeIcon : { ...styles.activeIcon, left: 120 }} />
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={handleToggleMap} style={{ flex: 1 }} />
-                    <TouchableOpacity onPress={handleToggleList} style={{ flex: 1 }} />
-                </View>
+        <View style={globalStyles.container}>
+            <View style={styles.switchContainer}>
+                <TouchableOpacity style={!isLeftActive ? styles.switchButton : [styles.switchButton, styles.activeButton]} onPress={handleToggleMap} activeOpacity={1}>
+                    <MaterialCommunityIcons name="map-marker" size={24} color={colors.SECONDARY_TEXT} />
+                </TouchableOpacity>
+                <TouchableOpacity style={isLeftActive ? styles.switchButton : [styles.switchButton, styles.activeButton]} onPress={handleToggleList} activeOpacity={1}>
+                    <MaterialCommunityIcons name="menu" size={24} color={colors.SECONDARY_TEXT} />
+                </TouchableOpacity>
             </View>
-            {isLeftActive ? <Map /> : <FlatList
+            {isLeftActive ? <Map /> : (data.length ? <FlatList
                 data={data}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => {
                     return (
                         <CafeListCard cafe={item}>
-                            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate('CafeDetailsScreen', { sessionId: sessionId, cafeId: item.id })}>
-                                <Text style={{ color: '#BFBFBF', fontFamily: fonts.SFUILight }}>подробнее</Text>
+                            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate('CafeDetailsScreen', { sessionId, cafeId: item.id })}>
+                                <Text style={styles.detailsButtonText}>подробнее</Text>
                                 <Image source={require('../../../assets/icons/icon_read_more.png')} />
                             </TouchableOpacity>
                         </CafeListCard>
                     );
                 }}
                 style={{ backgroundColor: '#fff' }}
-            />}
+            /> :
+                <EmptyScreen>
+                    <Text style={globalStyles.emptyScreenText}>По вашему запросу ничего не найдено</Text>
+                </EmptyScreen>
+            )}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     details: {
-        alignItems: 'center',
+        flex: 1,
+        alignItems: 'flex-end',
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginRight: 5
+        marginRight: 5,
     },
-    toggleContainer: {
-        backgroundColor: '#fff',
-        marginBottom: 15,
-        justifyContent: 'center',
-        position: 'relative',
-        flexDirection: 'row'
+    detailsButtonText: {
+        color: '#BFBFBF',
+        fontFamily: fonts.SFUILight,
+        marginBottom: 3
     },
-    activeIcon: {
-        position: 'absolute',
-        right: 120,
-        top: 4,
-        zIndex: 0
-    },
-    buttonContainer: {
+    switchContainer: {
+        borderWidth: 1,
+        borderRadius: 16,
+        borderColor: colors.SECONDARY_TEXT,
+        alignSelf: 'center',
         flexDirection: 'row',
-        position: 'absolute',
-        width: '35%',
-        height: '100%',
+        alignItems: 'center',
+        marginBottom: 16,
+        marginTop: 8,
         zIndex: 1,
+        width: 128,
+        height: 32
+    },
+    switchButton: {
+        flex: 1,
+        alignItems: 'center',
+        marginHorizontal: 3,
+    },
+    activeButton: {
+        backgroundColor: colors.PRIMARY,
+        borderRadius: 16,
     }
 });

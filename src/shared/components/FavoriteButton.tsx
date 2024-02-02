@@ -1,9 +1,9 @@
 import { TouchableOpacity, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
-import { selectFavorite, setFavoriteServer, unsetFavoriteServer } from '../../redux/favorite/favoriteReducer';
+import { selectFavorite, setFavoriteServer, unsetFavoriteServer } from '../../redux/favoriteReducer';
 import { useSelector } from 'react-redux';
-import { selectSessionId } from '../../redux/auth/authReducer';
+import { selectSessionId } from '../../redux/authSlice';
 
 export function FavoriteButton({ productId }: { productId: string }) {
     const sessionId = useSelector(selectSessionId);
@@ -19,10 +19,8 @@ export function FavoriteButton({ productId }: { productId: string }) {
     };
 
     return (
-        <TouchableOpacity onPress={handleToggleFavorite}>
-            {isFavorite ? <Image source={require('../../../assets/icons/icon_heart_active.png')} /> :
-                <Image source={require('../../../assets/icons/icon_heart_gray.png')} />
-            }
+        <TouchableOpacity onPress={handleToggleFavorite} style={{ marginRight: 8 }}>
+            <Image source={isFavorite ? require('../../../assets/icons/icon_heart_active.png') : require('../../../assets/icons/icon_heart_gray.png')} />
         </TouchableOpacity>
     )
 }

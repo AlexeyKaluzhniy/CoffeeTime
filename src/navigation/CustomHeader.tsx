@@ -19,7 +19,7 @@ export function CustomHeader({ navigation }: NativeStackHeaderProps | DrawerHead
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: 16,
+        paddingBottom: 8,
         paddingTop: 35,
         alignItems: 'center',
         justifyContent: 'center',

@@ -5,12 +5,12 @@ import { Drink } from "../screens/Drink/Drink";
 import { CustomHeader } from "./CustomHeader";
 import { fonts } from "../shared/styles/fonts";
 import { useNavigation } from "@react-navigation/native";
-import { FavoriteStackParamList } from "../../navigationTypes";
+import { FavoriteStackParamList, FavoriteStackProps } from "../../navigationTypes";
 
 const favoriteStack = createNativeStackNavigator<FavoriteStackParamList>();
 
 export function FavoriteStack() {
-    const navigation = useNavigation();
+    const navigation = useNavigation<FavoriteStackProps['navigation']>();
 
     return (
         <favoriteStack.Navigator screenOptions={{

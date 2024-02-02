@@ -22,9 +22,7 @@ export function DrinkCard({ drink, pressHandler }: Props) {
                     <Text style={styles.priceNumber}>{drink.price}</Text>
                     <Image source={require('../../../assets/icons/icon_ruble.png')} />
                 </View>
-                <View style={{ marginRight: 8 }}>
-                    <FavoriteButton productId={drink.id} />
-                </View>
+                <FavoriteButton productId={drink.id} />
             </View>
         </TouchableOpacity>
     )
@@ -32,12 +30,12 @@ export function DrinkCard({ drink, pressHandler }: Props) {
 
 const styles = StyleSheet.create({
     card: {
-        width: 168,
+        width: '46%',
         height: 235,
-        marginLeft: 8,
         backgroundColor: '#fff',
         elevation: 3,
-        marginBottom: 10
+        marginBottom: 10,
+        marginLeft: '2.7%'
     },
     header: {
         height: 70,
@@ -50,7 +48,7 @@ const styles = StyleSheet.create({
         color: colors.SECONDARY_TEXT,
     },
     image: {
-        width: 160,
+        width: '95%',
         height: 120,
         alignSelf: 'center'
     },

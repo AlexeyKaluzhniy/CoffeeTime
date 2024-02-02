@@ -1,10 +1,10 @@
 import { PayloadAction, createAsyncThunk, createReducer } from "@reduxjs/toolkit";
-import { DrinkDetails } from "../../../componentTypes";
-import { RootState } from "../store";
-import { fetchData } from "../fetchData";
+import { DrinkDetails } from "../../componentTypes";
+import { RootState } from "./store";
+import { fetchData } from "./fetchData";
 
 interface DrinkDetailsState {
-    details: DrinkDetails | null
+    details: DrinkDetails | null;
 }
 
 const initialState: DrinkDetailsState = {

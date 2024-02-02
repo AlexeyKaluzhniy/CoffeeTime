@@ -1,18 +1,12 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { cafeListReducer } from "./cafe/cafeListReducer";
-import { cafeDetailsReducer } from "./cafe/cafeDetailsReducer";
-import { cafeDrinksReducer } from "./cafe/cafeDrinksReducer";
-import { drinkDetailsReducer } from "./drink/drinkDetailsReducer";
-import { favoriteReducer } from "./favorite/favoriteReducer";
-import { authReducer } from "./auth/authReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { drinkDetailsReducer } from "./drinkDetailsReducer";
+import { favoriteReducer } from "./favoriteReducer";
+import { cafeReducer } from "./cafeReducer";
+import { authReducer } from "./authSlice";
 
 export const store = configureStore({
     reducer: {
-        cafe: combineReducers({
-            cafeList: cafeListReducer,
-            cafeDetails: cafeDetailsReducer,
-            cafeDrinks: cafeDrinksReducer
-        }),
+        cafe: cafeReducer,
         drinkDetails: drinkDetailsReducer,
         favorite: favoriteReducer,
         auth: authReducer

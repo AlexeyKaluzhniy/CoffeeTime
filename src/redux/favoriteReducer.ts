@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createReducer, createSelector } from "@reduxjs/toolkit";
-import { fetchData } from "../fetchData";
-import { Drink } from "../../../componentTypes";
-import { RootState } from "../store";
+import { fetchData } from "./fetchData";
+import { Drink } from "../../componentTypes";
+import { RootState } from "./store";
 
 export const fetchAllProducts = createAsyncThunk(
     'favorite/fetchAllProducts',
@@ -33,8 +33,8 @@ export const unsetFavoriteServer = createAsyncThunk(
     });
 
 interface FavoriteState {
-    products: Drink[],
-    favorites: string[],
+    products: Drink[];
+    favorites: string[];
 }
 
 const initialState: FavoriteState = {

@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { DrinkDetailsProps } from '../../../navigationTypes';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
-import { fetchDrinkDetails, selectDrinkDetails } from '../../redux/drink/drinkDetailsReducer';
+import { fetchDrinkDetails, selectDrinkDetails } from '../../redux/drinkDetailsReducer';
 import { useSelector } from 'react-redux';
 import { colors } from '../../shared/styles/colors';
 import { fonts } from '../../shared/styles/fonts';
 import { LoadingIndicator } from '../../shared/components/LoadingIndicator';
 import { FavoriteButton } from '../../shared/components/FavoriteButton';
+import { globalStyles } from '../../shared/styles/globalStyles';
 
 export function Drink({ route }: DrinkDetailsProps) {
     const dispatch = useDispatch<AppDispatch>();
@@ -36,9 +37,9 @@ export function Drink({ route }: DrinkDetailsProps) {
     }, [dispatch]);
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={globalStyles.container}>
             {!isLoading && details ?
-                (<View style={{ flex: 1 }}>
+                (<View style={globalStyles.container}>
                     <Image source={{ uri: details.imagesPath }} style={styles.image} />
                     <View style={styles.titleContainer}>
                         <Text style={styles.productTitle}>{details.productName}</Text>
@@ -50,15 +51,15 @@ export function Drink({ route }: DrinkDetailsProps) {
                         {details.attribute.map(item => {
                             return (
                                 <View key={item.id}>
-                                    <Image source={getImageSource(item.iconType)} style={{ marginRight: 16, marginTop: 16 }} />
+                                    <Image source={getImageSource(item.iconType)} style={styles.imageAttribute} />
                                 </View>
                             );
                         })}
                     </View>
-                    <View style={{ justifyContent: 'flex-end', flex: 1 }}>
+                    <View style={{ ...globalStyles.container, justifyContent: 'flex-end' }}>
                         <View style={styles.footer}>
                             <Text style={styles.price}>{details.price}</Text>
-                            <Image source={require('../../../assets/icons/simvol_rub.png')} style={{ marginTop: 3, marginRight: 5 }} />
+                            <Image source={require('../../../assets/icons/simvol_rub.png')} style={styles.iconRuble} />
                             <TouchableOpacity style={styles.button}>
                                 <Text style={styles.buttonTitle}>заказать</Text>
                             </TouchableOpacity>
@@ -121,5 +122,13 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: '#EAEAEA',
         width: 332
+    },
+    imageAttribute: {
+        marginRight: 16,
+        marginTop: 16
+    },
+    iconRuble: {
+        marginTop: 3,
+        marginRight: 5
     }
 });

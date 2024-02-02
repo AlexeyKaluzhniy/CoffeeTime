@@ -1,10 +1,11 @@
-import { FlatList, View } from 'react-native';
+import { FlatList, View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import { selectAllFavorites } from '../../redux/favorite/favoriteReducer';
+import { selectAllFavorites } from '../../redux/favoriteReducer';
 import { DrinkCard } from '../Drink/DrinkCard';
 import { FavoriteStackProps } from '../../../navigationTypes';
-import { NoCoffee } from './NoCoffee';
-import { selectSessionId } from '../../redux/auth/authReducer';
+import { selectSessionId } from '../../redux/authSlice';
+import { EmptyScreen } from '../../shared/components/EmptyScreen';
+import { globalStyles } from '../../shared/styles/globalStyles';
 
 export function Favorite({ navigation }: FavoriteStackProps) {
     const favorites = useSelector(selectAllFavorites);
@@ -13,7 +14,7 @@ export function Favorite({ navigation }: FavoriteStackProps) {
     const pressHandler = (id: string) => navigation.navigate('DrinkDetailsScreen', { sessionId, id });
 
     return (
-        <View style={{ backgroundColor: '#fff', flex: 1 }}>
+        <View style={globalStyles.container}>
             {favorites.length > 0 ? (
                 <FlatList
                     data={favorites}
@@ -26,8 +27,13 @@ export function Favorite({ navigation }: FavoriteStackProps) {
                     numColumns={2}
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
-                    ListHeaderComponent={() => { return (<View style={{ paddingTop: 10 }} />) }}
-                />) : <NoCoffee />}
+                    ListHeaderComponent={() => { return (<View style={globalStyles.headerListOffset} />) }}
+                />) :
+                <EmptyScreen>
+                    <Text style={globalStyles.emptyScreenText}>Здесь нет ни одной чашки кофе</Text>
+                    <Text style={{ ...globalStyles.emptyScreenText, marginTop: 12 }}>Попробуйте вернуться к нам позже</Text>
+                </EmptyScreen>
+            }
         </View>
     );
 }

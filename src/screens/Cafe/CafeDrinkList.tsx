@@ -1,32 +1,36 @@
 import { FlatList, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CafeStackProps } from '../../../navigationTypes';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
-import { fetchCafeDrinks, selectCafeDrinks } from '../../redux/cafe/cafeDrinksReducer';
 import { useSelector } from 'react-redux';
-import { DrinkCard } from './DrinkCard';
+import { DrinkCard } from '../Drink/DrinkCard';
+import { fetchCafeDrinks, selectCafeDrinks } from '../../redux/cafeReducer';
+import { globalStyles } from '../../shared/styles/globalStyles';
+import { Cafe } from '../../../componentTypes';
+import { LoadingIndicator } from '../../shared/components/LoadingIndicator';
+import { CafeListHeader } from './CafeListHeader';
 
 type DrinkProps = {
     sessionId: string,
-    cafeId: string,
+    cafe: Cafe,
     navigation: CafeStackProps['navigation'];
 }
 
-export function CafeDrinkList({ sessionId, cafeId, navigation }: DrinkProps) {
+export function CafeDrinkList({ sessionId, cafe, navigation }: DrinkProps) {
     const dispatch = useDispatch<AppDispatch>();
     const drinks = useSelector(selectCafeDrinks);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        dispatch(fetchCafeDrinks({ sessionId, cafeId }))
+        dispatch(fetchCafeDrinks({ sessionId, cafeId: cafe.id }))
             .then(() => setIsLoading(false));
     }, [dispatch]);
 
-    const pressHandler = (id: string) => navigation.navigate('DrinkDetailsScreen', {sessionId, id });
+    const pressHandler = (id: string) => navigation.navigate('DrinkDetailsScreen', { sessionId, id });
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={globalStyles.container}>
             {!isLoading ? <FlatList
                 data={drinks}
                 keyExtractor={item => item.cofeId}
@@ -38,8 +42,8 @@ export function CafeDrinkList({ sessionId, cafeId, navigation }: DrinkProps) {
                 overScrollMode='never'
                 showsVerticalScrollIndicator={false}
                 numColumns={2}
-                ListHeaderComponent={() => { return (<View style={{ paddingTop: 10 }} />) }}
-            /> : null}
+                ListHeaderComponent={() => { return (<CafeListHeader cafe={cafe} />) }}
+            /> : (<LoadingIndicator />)}
         </View>
     )
 }

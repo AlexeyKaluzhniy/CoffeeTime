@@ -1,4 +1,4 @@
-import { RootStackProps } from "./navigationTypes";
+import { AuthStackProps, RootStackProps } from "./navigationTypes";
 
 export type Cafe = {
     id: string;
@@ -36,7 +36,6 @@ export type DrinkDetails = {
 };
 
 export type AuthProps = {
-    navigation: RootStackProps['navigation'];
     url: 'Register' | 'Authorization';
     buttonText: string;
 }

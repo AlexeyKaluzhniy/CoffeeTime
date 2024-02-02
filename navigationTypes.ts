@@ -17,12 +17,18 @@ export type CafeStackProps = NativeStackScreenProps<CafeStackParamList, 'CafeDet
 export type DrinkDetailsProps = NativeStackScreenProps<CafeStackParamList, 'DrinkDetailsScreen'>;
 
 export type RootStackParamList = {
-    Login: undefined;
-    Register: undefined;
+    Auth: undefined;
     Drawer: undefined;
 };
 
 export type RootStackProps = NativeStackScreenProps<RootStackParamList>;
+
+export type AuthStackParamList = {
+    Login: undefined;
+    Register: undefined;
+}
+
+export type AuthStackProps = NativeStackScreenProps<AuthStackParamList>;
 
 export type FavoriteStackParamList = {
     Favorite: undefined;

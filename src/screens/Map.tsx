@@ -2,13 +2,14 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { fonts } from "../shared/styles/fonts";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectCafes } from "../redux/cafe/cafeListReducer";
 import { colors } from "../shared/styles/colors";
 import { Cafe } from "../../componentTypes";
+import { selectCafes } from "../redux/cafeReducer";
 
 import * as Location from 'expo-location';
 import MapView, { Marker } from "react-native-maps";
 import customMapStyle from '../shared/styles/customMapStyle.json';
+import { globalStyles } from "../shared/styles/globalStyles";
 
 export function Map() {
     const [location, setLocation] = useState<Location.LocationObject>();
@@ -39,7 +40,7 @@ export function Map() {
     return (
         <View style={styles.container}>
             <MapView
-                style={{ width: '100%', height: '100%', flex: 1 }}
+                style={styles.map}
                 region={{
                     latitude: location ? location.coords.latitude : 46.8427,
                     longitude: location ? location.coords.longitude : 29.629,
@@ -73,7 +74,7 @@ export function Map() {
             <View style={styles.titleContainer}>
                 {cafe ? (
                     <View style={{ flexDirection: 'row' }}>
-                        <Image source={{ uri: cafe.images }} style={{ width: 120, height: 120 }} />
+                        <Image source={{ uri: cafe.images }} style={styles.cafeImage} />
                         <View style={styles.descriptionContainer}>
                             <Text style={styles.title}>{cafe.name}</Text>
                             <Text style={styles.address}>{cafe.address}</Text>
@@ -93,6 +94,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent: 'flex-end',
     },
+    map: {
+        width: '100%',
+        height: '100%'
+    },
     title: {
         fontFamily: fonts.LobsterRegular,
         fontSize: 24,
@@ -111,5 +116,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '60%',
         marginLeft: 10
+    },
+    cafeImage: {
+        width: 120,
+        height: 120
     }
 });
