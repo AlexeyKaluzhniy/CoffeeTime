@@ -3,7 +3,7 @@ import { useFonts } from 'expo-font';
 import 'react-native-gesture-handler';
 import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 import { RootStack } from './src/navigation/RootStackNavigator';
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
@@ -31,12 +31,12 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <View style={globalStyles.container} onLayout={onLayoutRootView}>
-        <NavigationContainer>
-          <StatusBar />
-          <RootStack />
-        </NavigationContainer>
-      </View>
+        <View style={globalStyles.container} onLayout={onLayoutRootView}>
+          <NavigationContainer>
+            <StatusBar />
+            <RootStack />
+          </NavigationContainer>
+        </View>
     </Provider>
   );
 }

@@ -4,7 +4,7 @@ import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { Entypo } from '@expo/vector-icons';
 import { DrawerActions } from '@react-navigation/native';
 import { DrawerHeaderProps } from '@react-navigation/drawer';
-
+import { fonts } from '../shared/styles/fonts';
 
 export function CustomHeader({ navigation }: NativeStackHeaderProps | DrawerHeaderProps) {
     return (
@@ -14,7 +14,7 @@ export function CustomHeader({ navigation }: NativeStackHeaderProps | DrawerHead
             </TouchableOpacity>
             <Text style={styles.title}>CoffeTime</Text>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         top: 37
     },
     title: {
-        fontFamily: 'lobsterRegular',
+        fontFamily: fonts.LobsterRegular,
         fontSize: 22,
         alignSelf: 'center'
     },

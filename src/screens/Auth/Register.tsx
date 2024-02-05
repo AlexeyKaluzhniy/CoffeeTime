@@ -9,7 +9,7 @@ export function RegisterScreen({ navigation }: AuthStackProps) {
     return (
         <ImageBackground source={require('../../../assets/background/background.png')} style={authStyles.background}>
             <LinearGradient colors={['transparent', 'rgba(255, 255, 255, 0.6)']} style={authStyles.gradient} />
-            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <TouchableOpacity onPress={() => navigation.replace('Login')} style={styles.backButton}>
                 <Image source={require('../../../assets/icons/icon_back.png')} />
             </TouchableOpacity>
             <AppTitle />

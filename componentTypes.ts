@@ -1,5 +1,3 @@
-import { AuthStackProps, RootStackProps } from "./navigationTypes";
-
 export type Cafe = {
     id: string;
     name: string;

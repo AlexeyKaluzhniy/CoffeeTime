@@ -13,7 +13,7 @@ export function LoginScreen({ navigation }: AuthStackProps) {
             <AppTitle />
             <View style={styles.inputContainer}>
                 <AuthForm url='Authorization' buttonText='Войти' />
-                <SignUpLink handlePress={() => navigation.navigate('Register')} title="Регистрация" />
+                <SignUpLink handlePress={() => navigation.replace('Register')} title="Регистрация" />
             </View>
         </ImageBackground>
     );

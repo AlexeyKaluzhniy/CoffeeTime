@@ -41,7 +41,7 @@ export function AuthForm({ url, buttonText }: AuthProps) {
             textError,
             [{ text: 'Ок' }]
         )
-    }
+    };
 
     useEffect(() => {
         if (!loading && !error && sessionId) {
